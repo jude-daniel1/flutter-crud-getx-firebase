@@ -1,48 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_authentication/signup_page.dart';
-import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class SignUpPage extends StatelessWidget {
+ const SignUpPage({Key? key}) : super(key: key);
+
+ 
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    List images = [ 'g.png','t.png', 'f.png'];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(children: <Widget>[
         Container(
+          alignment: Alignment.bottomCenter,
           width: width,
           height: height * 0.3,
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("img/loginimg.png"), fit: BoxFit.cover),
+                image: AssetImage("img/signup.png"), fit: BoxFit.cover),
+            
           ),
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              image: DecorationImage(image: AssetImage("img/profile1.png"))
+            ),
+          )
         ),
+
+        const SizedBox(height:50 ,),
         Container(
           padding: const EdgeInsets.all(10),
           width: width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Hello",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 60,
-                ),
-              ),
-              const Text(
-                "Sign into your account",
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -56,7 +54,7 @@ class LoginPage extends StatelessWidget {
                     ]),
                 child: TextField(
                   decoration: InputDecoration(
-                     hintText: "Enter Email",
+                    hintText: "Enter Email",
                     prefixIcon: const Icon(Icons.email, color: Colors.deepOrangeAccent,),
                       focusedBorder:  OutlineInputBorder(
                          borderRadius: BorderRadius.circular(30),
@@ -83,7 +81,7 @@ class LoginPage extends StatelessWidget {
                 child: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                     hintText: "Enter Password",
+                    hintText: "Enter Password",
                     prefixIcon: const Icon(Icons.lock, color: Colors.deepOrangeAccent,),
                       focusedBorder:  OutlineInputBorder(
                          borderRadius: BorderRadius.circular(30),
@@ -95,18 +93,7 @@ class LoginPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30))),
                 ),
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                margin: const EdgeInsets.only(top: 20),
-                width: width,
-                child:  const Text(
-                "Forgot your Password?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 16,
-                ),
-              ),
-              ),
+
               const SizedBox(height: 50,),
               Center(
                 child: InkWell(
@@ -127,42 +114,45 @@ class LoginPage extends StatelessWidget {
                             offset: const Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2))
                       ]),
-                    child: const Text("Sign in", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+                    child: const Text("Sign up", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
                  
                 ),
                 )
               ),
-            ],
+             SizedBox(height: height * 0.1,),
+              const Center(
+                child:  Text(
+                    "Sign up using one of the following methods",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontSize: 13,
+                    ),
+                ),
+              ),
+               const SizedBox(height: 10,),
+            
+            Container(
+              width: width,
+              alignment: Alignment.center,
+              child: Wrap(
+                children: List<Widget>.generate(3, (index){
+                return Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    decoration:  BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 4.0, color: Colors.grey.withOpacity(0.5))
+                    ),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage("img/${images[index]}"),
+                      backgroundColor: Colors.white,
+                    ),
+                  ); 
+              }).toList(),
+              ),
+            )
+           ],
           ),
         ),
-        Expanded(child: Container()),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                  "Don't have an account?",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w100,
-                    fontSize: 16,
-                  ),
-              ),
-               const SizedBox(width: 5,),
-               InkWell(
-                 onTap: ()=>Get.to(() => const SignUpPage()),
-                 child: const Text(
-                  "Create",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-              ),
-               )
-        
-            ],
-          ),
-        )
       ]),
     );
   }
