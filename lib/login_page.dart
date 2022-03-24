@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_authentication/auth_controller.dart';
 import 'package:flutter_login_authentication/signup_page.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+  var _emailController = TextEditingController();
+  var _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
@@ -55,23 +58,29 @@ class LoginPage extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.2))
                     ]),
                 child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
-                     hintText: "Enter Email",
-                    prefixIcon: const Icon(Icons.email, color: Colors.deepOrangeAccent,),
-                      focusedBorder:  OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(30),
+                      hintText: "Enter Email",
+                      prefixIcon: const Icon(
+                        Icons.email,
+                        color: Colors.deepOrangeAccent,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(color: Colors.white)),
-                      enabledBorder:  OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(30),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(color: Colors.white)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30))),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
@@ -82,14 +91,18 @@ class LoginPage extends StatelessWidget {
                     ]),
                 child: TextField(
                   obscureText: true,
+                  controller: _passwordController,
                   decoration: InputDecoration(
-                     hintText: "Enter Password",
-                    prefixIcon: const Icon(Icons.lock, color: Colors.deepOrangeAccent,),
-                      focusedBorder:  OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(30),
+                      hintText: "Enter Password",
+                      prefixIcon: const Icon(
+                        Icons.lock,
+                        color: Colors.deepOrangeAccent,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(color: Colors.white)),
-                      enabledBorder:  OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(30),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(color: Colors.white)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30))),
@@ -99,26 +112,30 @@ class LoginPage extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.only(top: 20),
                 width: width,
-                child:  const Text(
-                "Forgot your Password?",
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 16,
+                child: const Text(
+                  "Forgot your Password?",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
+                    fontSize: 16,
+                  ),
                 ),
               ),
+              const SizedBox(
+                height: 50,
               ),
-              const SizedBox(height: 50,),
               Center(
-                child: InkWell(
-                  onTap: (){},
-                  child: Container(
+                  child: InkWell(
+                onTap: () => AuthController.authController.login(
+                    _emailController.text.trim(),
+                    _passwordController.text.trim()),
+                child: Container(
                   alignment: Alignment.center,
                   width: width * 0.5,
                   height: 50,
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage("img/loginbtn.png"),
-                    fit: BoxFit.cover),
+                      image: const DecorationImage(
+                          image: AssetImage("img/loginbtn.png"),
+                          fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
@@ -127,11 +144,15 @@ class LoginPage extends StatelessWidget {
                             offset: const Offset(1, 1),
                             color: Colors.grey.withOpacity(0.2))
                       ]),
-                    child: const Text("Sign in", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
-                 
+                  child: const Text(
+                    "Sign in",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
                 ),
-                )
-              ),
+              )),
             ],
           ),
         ),
@@ -142,24 +163,25 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                  "Don't have an account?",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w100,
-                    fontSize: 16,
-                  ),
+                "Don't have an account?",
+                style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 16,
+                ),
               ),
-               const SizedBox(width: 5,),
-               InkWell(
-                 onTap: ()=>Get.to(() => const SignUpPage()),
-                 child: const Text(
+              const SizedBox(
+                width: 5,
+              ),
+              InkWell(
+                onTap: () => Get.to(() => SignUpPage()),
+                child: const Text(
                   "Create",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-              ),
-               )
-        
+                ),
+              )
             ],
           ),
         )
